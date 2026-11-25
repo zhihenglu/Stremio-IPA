@@ -1,0 +1,55 @@
+name: Stremio
+options:
+  bundleIdPrefix: com.zhihenglu
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    CODE_SIGN_IDENTITY: ""
+    CODE_SIGNING_REQUIRED: "NO"
+targets:
+  Stremio:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/Stremio
+      - path: Resources/Assets.xcassets
+      # web/ 是文件夹引用（蓝色文件夹）：构建时由 GitHub Actions 把
+      # stremio-web 的 build/ 产物整目录复制进来，目录结构原样进 Bundle。
+      # 仓库里只有一个 .gitkeep 占位，本地直接打开工程会显示无网页文件提示页。
+      - path: web
+        type: folder
+        buildPhase: resources
+    info:
+      path: Sources/Stremio/Info.plist
+      properties:
+        CFBundleDisplayName: Stremio
+        UILaunchScreen:
+          UIColorName: ""
+        UIApplicationSupportsIndirectInputEvents: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        # Stremio 的插件（addon）大量使用 http 明文地址，必须放行任意加载
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        UIStatusBarStyle: UIStatusBarStyleLightContent
+        UIViewControllerBasedStatusBarAppearance: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.zhihenglu.stremio
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: "YES"
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"
