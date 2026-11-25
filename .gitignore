@@ -1,0 +1,18 @@
+# XcodeGen 生成的工程不进仓库（CI 里现生成）
+Stremio.xcodeproj/
+*.xcodeproj
+
+# 构建时生成，不进仓库
+.upstream/
+build/
+DerivedData/
+*.ipa
+Payload/
+
+# stremio-web 产物在构建时复制进 web/，不进仓库（只留占位）
+web/*
+!web/.gitkeep
+
+# 其他
+.DS_Store
+xcuserdata/
