@@ -1,0 +1,2 @@
+此目录在 GitHub Actions 构建时会被 stremio-web 的 build/ 产物整目录替换。
+仓库里只保留这个占位文件，不要手工往这里放网页文件。
